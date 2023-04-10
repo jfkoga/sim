@@ -6,6 +6,8 @@ metadata:
   name: simtest-app
 spec:
   type: ClusterIP
+  selector:
+    app: simtest-app
   ports:
   - name: http
     port: 1080

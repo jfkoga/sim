@@ -14,10 +14,10 @@ spec:
   template:
     metadata:
       labels:
-        app: laravel-app
+        app: simtest-app
     spec:
       containers:
-        - image: image-registry.openshift-image-registry.svc:5000/suport-tecdigitals-dev/simtest-app:1.0.0
+        - image: image-registry.openshift-image-registry.svc:5000/suport-tecdigitals-dev/simtest-app:1.0.1
           name: laravel-app
           imagePullPolicy: Always
           env:
@@ -42,7 +42,7 @@ spec:
                   name: laravel-config
                   key: app.url
           ports:
-            - containerPort: 8080
+            - containerPort: 1080
               protocol: TCP
           resources:
             limits:
