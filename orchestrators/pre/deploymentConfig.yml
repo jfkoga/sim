@@ -17,15 +17,10 @@ spec:
         app: laravel-app
     spec:
       containers:
-        - image: image-registry.openshift-image-registry.svc:5000/suport-tecdigitals-dev/simtest-app:latest
+        - image: image-registry.openshift-image-registry.svc:5000/suport-tecdigitals-dev/simtest-app:1.0.0
           name: laravel-app
           imagePullPolicy: Always
           env:
-            - name: APP_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: laravel-config
-                  key: app.name
             - name: APP_ENV
               valueFrom:
                 configMapKeyRef:
@@ -46,26 +41,6 @@ spec:
                 configMapKeyRef:
                   name: laravel-config
                   key: app.url
-            - name: DB_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: db-config
-                  key: db.host
-            - name: DB_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: db-config
-                  key: db.database
-            - name: DB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: db-config
-                  key: db.username
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: db-config
-                  key: db.password
           ports:
             - containerPort: 1080
               protocol: TCP

@@ -8,7 +8,7 @@ spec:
   source:
     type: Git
     git:
-      uri: https://github.com/monodot/container-up
+      uri: https://github.com/jfkoga/sim.git
     contextDir: httpd-hello-world
   strategy:
     type: Docker                      
