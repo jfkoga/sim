@@ -36,6 +36,7 @@ RUN a2dissite 000-default.conf
 COPY ./apache/laravel.conf /etc/apache2/sites-available/laravel.conf
 COPY ./apache/laravel-ssl.conf /etc/apache2/sites-available/laravel-ssl.conf
 COPY ./apache/ports.conf /etc/apache2/ports.conf
+COPY ./apache/apache2.conf /etc/apache2/apache2.conf
 RUN a2ensite laravel.conf && a2ensite laravel-ssl
 #COPY ./apache/$BUILD_ARGUMENT_ENV/php.ini /usr/local/etc/php/php.ini
 
@@ -56,3 +57,4 @@ COPY --chown=www-data:www-data . /var/www/html/
 
 # install all PHP dependencies
 #RUN composer install --optimize-autoloader --no-interaction --no-progress --no-dev; 
+EXPOSE 8080
