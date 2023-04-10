@@ -18,39 +18,39 @@ spec:
     spec:
       containers:
         - image: image-registry.openshift-image-registry.svc:5000/suport-tecdigitals-dev/simtest-app:1.0.1
-          name: laravel-app
+          name: simtest-app
           imagePullPolicy: Always
           env:
             - name: APP_ENV
               valueFrom:
                 configMapKeyRef:
-                  name: laravel-config
+                  name: simtest-app
                   key: app.env
             - name: APP_KEY
               valueFrom:
                 configMapKeyRef:
-                  name: laravel-config
+                  name: simtest-app
                   key: app.key
             - name: APP_DEBUG
               valueFrom:
                 configMapKeyRef:
-                  name: laravel-config
+                  name: simtest-app
                   key: app.debug
             - name: APP_URL
               valueFrom:
                 configMapKeyRef:
-                  name: laravel-config
+                  name: simtest-app
                   key: app.url
             - name: MYSQL_HOST
               valueFrom:
-                secretKeyRef:
-                  name: simtest-db
-                  key: database-host
+                configMapKeyRef:
+                  name: simtest-app
+                  key: database.host
             - name: MYSQL_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: simtest-db
-                  key: database-port
+                  name: simtest-app
+                  key: database.port
             - name: MYSQL_DATABASE
               valueFrom:
                 secretKeyRef:
