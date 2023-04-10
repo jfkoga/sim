@@ -54,6 +54,7 @@ WORKDIR /var/www/html
 
 # copy source files and config file
 COPY --chown=www-data:www-data . /var/www/html/
+RUN chmod 777 -R /var/www/html/storage
 
 # install all PHP dependencies
 #RUN composer install --optimize-autoloader --no-interaction --no-progress --no-dev; 
