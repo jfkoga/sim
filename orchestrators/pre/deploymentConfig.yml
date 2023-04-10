@@ -42,7 +42,7 @@ spec:
                   name: laravel-config
                   key: app.url
           ports:
-            - containerPort: 1080
+            - containerPort: 8080
               protocol: TCP
           resources:
             limits:
