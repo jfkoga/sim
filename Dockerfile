@@ -52,12 +52,16 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 # set working directory
 WORKDIR /var/www/html
 
-# copy source files and config file
 COPY --chown=www-data:www-data . /var/www/html/
+
 RUN chmod 777 -R /var/www/html/storage
 
-# install all PHP dependencies
+# Install Laravel PHP dependencies
 #RUN composer install --optimize-autoloader --no-interaction --no-progress --no-dev; 
+
+# Install composer and Laravel dependencies with composer
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && composer install --no-dev --optimize-autoloader
+
 EXPOSE 1080
 
 #CMD ["./scripts/start.sh"]
