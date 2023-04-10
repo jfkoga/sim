@@ -7,17 +7,17 @@ metadata:
     CodiInap: XXX
     CodiServei: "7_XXXX"
     Entorn: PRE
-    app: ${NAME}
-  name: ${NAME}
+    app: simtest-app
+  name: simtest-app
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
-        app: ${NAME}
+        app: laravel-app
     spec:
       containers:
-        - image: image-registry.openshift-image-registry.svc:5000/xxxxx-0615-xxx-pre-xxx/laravel-app:1.0.0
+        - image: image-registry.openshift-image-registry.svc:5000/suport-tecdigitals-dev/simtest-app:latest
           name: laravel-app
           imagePullPolicy: Always
           env:
@@ -52,34 +52,23 @@ spec:
                   name: db-config
                   key: db.host
             - name: DB_DATABASE
-                valueFrom:
-                  secretKeyRef:
-                    name: db-config
-                    key: db.database
+              valueFrom:
+                secretKeyRef:
+                  name: db-config
+                  key: db.database
             - name: DB_USERNAME
-                valueFrom:
-                  secretKeyRef:
-                    name: db-config
-                    key: db.username
+              valueFrom:
+                secretKeyRef:
+                  name: db-config
+                  key: db.username
             - name: DB_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: db-config
-                    key: db.password
+              valueFrom:
+                secretKeyRef:
+                  name: db-config
+                  key: db.password
           ports:
             - containerPort: 1080
               protocol: TCP
-          readinessProbe:
-            tcpSocket:
-              port: 1080
-            initialDelaySeconds: 100
-            periodSeconds: 10
-            failureThreshold: 6
-          livenessProbe:
-            tcpSocket:
-              port: 1080
-            initialDelaySeconds: 120
-            periodSeconds: 30
           resources:
             limits:
               cpu: 250m
@@ -87,16 +76,4 @@ spec:
             requests:
               cpu: 250m
               memory: 256Mi
-        resources:
-          limits:
-            memory: 256Mi
-  triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - atc-app
-        from:
-          kind: ImageStreamTag
-          name: image-registry.openshift-image-registry.svc:5000/71018-2692-ies-pre-intra/atc-app:1.1.8
-    type: ImageChange
+
