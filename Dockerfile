@@ -59,3 +59,5 @@ RUN chmod 777 -R /var/www/html/storage
 # install all PHP dependencies
 #RUN composer install --optimize-autoloader --no-interaction --no-progress --no-dev; 
 EXPOSE 1080
+
+#CMD ["./scripts/start.sh"]

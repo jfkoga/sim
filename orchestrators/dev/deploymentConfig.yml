@@ -41,6 +41,36 @@ spec:
                 configMapKeyRef:
                   name: laravel-config
                   key: app.url
+            - name: MYSQL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: simtest-db
+                  key: database-host
+            - name: MYSQL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: simtest-db
+                  key: database-port
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: simtest-db
+                  key: database-name
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: simtest-db
+                  key: database-password
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: simtest-db
+                  key: database-root-password
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: simtest-db
+                  key: database-user
           ports:
             - containerPort: 1080
               protocol: TCP

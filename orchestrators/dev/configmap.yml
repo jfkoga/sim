@@ -8,7 +8,7 @@ data:
   app.key: "base64:vw6G2uP8LV22haEERtzr5yDCBraLrMwbxlbSJDA97uk="
   app.debug: "true"
   app.url: "http://simtest-app-suport-tecdigitals-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com"
-  MYSQL_PORT: "3306"
+  database.port: "3306"
   MYSQL_HOST: "simtest-db"
   MYSQL_DATABASE: "simtest-dev"
   MYSQL_USER: "simtest-dev"
