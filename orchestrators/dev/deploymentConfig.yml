@@ -41,36 +41,36 @@ spec:
                 configMapKeyRef:
                   name: simtest-app
                   key: app.url
-            - name: MYSQL_HOST
+            - name: DB_HOST
               valueFrom:
                 configMapKeyRef:
                   name: simtest-app
                   key: database.host
-            - name: MYSQL_PORT
+            - name: DB_PORT
               valueFrom:
                 configMapKeyRef:
                   name: simtest-app
                   key: database.port
-            - name: MYSQL_DATABASE
+            - name: DB_DATABASE
               valueFrom:
                 secretKeyRef:
                   name: simtest-db
                   key: database-name
-            - name: MYSQL_PASSWORD
+            - name: DB_CONNECTION
               valueFrom:
                 secretKeyRef:
                   name: simtest-db
-                  key: database-password
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: simtest-db
-                  key: database-root-password
-            - name: MYSQL_USER
+                  key: database-name
+            - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: simtest-db
                   key: database-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: simtest-db
+                  key: database-password
           ports:
             - containerPort: 1080
               protocol: TCP
