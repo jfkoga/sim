@@ -6,17 +6,36 @@ services:
       dockerfile: ./Dockerfile
     image: 'simtest-app'
     ports:
-      - 8080:80
+      - 1080:1080
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+    networks:
+      - simtest
+    depends_on:
+      - mysql  
     volumes:
       - ./:/var/www/html
-  db:
-    image: mysql:8.0
-    restart: always
-    ports: 
-      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: 'simtest-db'
-      MYSQL_ALLOW_EMPTY_PASSWORD: 1
-      MYSQL_ROOT_PASSWORD: ""
-    volumes:
-      - ./db:/var/lib/mysql
+      - .env:/var/www/html/.env
+  mysql:
+      image: 'mysql/mysql-server:8.0'
+      environment:
+        MYSQL_ROOT_HOST: "%"
+        MYSQL_ROOT_PASSWORD: "root"
+        MYSQL_USER: "simtest"
+        MYSQL_PASSWORD: "s1mt3st2023!"
+        MYSQL_DATABASE: "simtest"
+        MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      ports:
+        - 3306:3306
+      volumes:
+        - 'mysql8:/var/lib/mysql'
+        - './db/init.sql:/docker-entrypoint-initdb.d/01init.sql'
+      networks:
+        - simtest
+networks:
+    simtest:
+      driver: bridge
+volumes:
+    mysql8:
+        driver: local

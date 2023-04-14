@@ -1,8 +1,12 @@
 #FROM docker-registry.ctti.extranet.gencat.cat/gencatcloud/apache-php:8.1
 FROM php:8.1-apache
-USER root 
 # install all the dependencies and enable PHP modules
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+      vim \
+      dos2unix \
+      telnet \
+      mariadb-client-10.5 \
+      net-tools \
       procps \
       nano \
       git \
@@ -49,19 +53,25 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN chmod +x /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
+
+
 # set working directory
 WORKDIR /var/www/html
+#COPY --chown=www-data:www-data . /var/www/html/
+COPY --chown=1013020000:1013020000 . /var/www/html/
+RUN chmod 777 -R /var/www/html/storage /var/www/html/bootstrap/cache 
 
-COPY --chown=www-data:www-data . /var/www/html/
-
-RUN chmod 777 -R /var/www/html/storage
-
+USER 1013020000
 # Install Laravel PHP dependencies
 #RUN composer install --optimize-autoloader --no-interaction --no-progress --no-dev; 
 
 # Install composer and Laravel dependencies with composer
 # RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && composer install --no-dev --optimize-autoloader
 
-EXPOSE 1080
 
-#CMD ["./scripts/start.sh"]
+RUN chmod +x ./docker-entrypoint.sh
+RUN chmod +x ./scripts/start.sh
+
+EXPOSE 1080
+#ENTRYPOINT ["sh","./docker-entrypoint.sh"]
+CMD ["./scripts/start.sh"]

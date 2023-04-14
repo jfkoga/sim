@@ -4,9 +4,10 @@ metadata:
   name: simtest-app
 data:
   app.name: "simtest-app"
-  app.env: "dev"
+  app.env: "testing"
   app.key: "base64:vw6G2uP8LV22haEERtzr5yDCBraLrMwbxlbSJDA97uk="
   app.debug: "true"
   app.url: "http://simtest-app-suport-tecdigitals-dev.apps.sandbox-m2.ll9k.p1.openshiftapps.com"
   database.port: "3306"
-  database.host: "simtest-db"
+  database.host: "mysql"
+  database.connection: "mysql"

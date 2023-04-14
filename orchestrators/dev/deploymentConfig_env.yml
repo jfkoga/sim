@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    CodiAplicacio: "0615"
+    CodiEntitat: ENS
+    CodiInap: XXX
+    CodiServei: "7_XXXX"
+    Entorn: PRE
+    app: simtest-app
+  name: simtest-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: simtest-app
+    spec:
+      containers:
+        - image: image-registry.openshift-image-registry.svc:5000/suport-tecdigitals-dev/simtest-app:1.0.2
+          name: simtest-app
+          imagePullPolicy: Always
+          env:
+            - name: APP_NAME_CM
+              valueFrom:
+                configMapKeyRef:
+                  name: simtest-app
+                  key: app.name
+            - name: APP_ENV_CM
+              valueFrom:
+                configMapKeyRef:
+                  name: simtest-app
+                  key: app.env
+            - name: APP_KEY_CM
+              valueFrom:
+                configMapKeyRef:
+                  name: simtest-app
+                  key: app.key
+            - name: APP_DEBUG_CM
+              valueFrom:
+                configMapKeyRef:
+                  name: simtest-app
+                  key: app.debug
+            - name: APP_URL_CM
+              valueFrom:
+                configMapKeyRef:
+                  name: simtest-app
+                  key: app.url
+            - name: DB_HOST_CM
+              valueFrom:
+                configMapKeyRef:
+                  name: simtest-app
+                  key: database.host
+            - name: DB_PORT_CM
+              valueFrom:
+                configMapKeyRef:
+                  name: simtest-app
+                  key: database.port
+            - name: DB_CONNECTION_CM
+              valueFrom:
+                configMapKeyRef:
+                  name: simtest-app
+                  key: database.connection
+            - name: DB_DATABASE_CM
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: database-name
+            - name: DB_USERNAME_CM
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: database-user
+            - name: DB_PASSWORD_CM
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: database-password
+          ports:
+            - containerPort: 1080
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+
